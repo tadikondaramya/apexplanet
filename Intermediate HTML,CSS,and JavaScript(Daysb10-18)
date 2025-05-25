@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Intermediate Web Dev - Task 2</title>
+
+  <style>
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body, html {
+      margin: 0; padding: 0;
+      font-family: 'Poppins', Arial, sans-serif;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: #222;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Navigation (Flexbox) */
+    nav {
+      background-color: rgba(255 255 255 / 0.15);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav .logo {
+      font-weight: 800;
+      font-size: 1.9rem;
+      letter-spacing: 1px;
+      user-select: none;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      user-select: none;
+    }
+    nav ul li a:hover {
+      background-color: rgba(255 255 255 / 0.3);
+      color: #fff;
+    }
+
+    /* Layout with CSS Grid */
+    main {
+      max-width: 1100px;
+      margin: 50px auto 80px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+    }
+
+    /* Contact Form */
+    form {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    form:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+    }
+    form h2 {
+      margin-bottom: 25px;
+      color: #2575fc;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #555;
+    }
+    input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 500;
+      color: #444;
+    }
+    input[type="text"]:focus, input[type="email"]:focus {
+      border-color: #2575fc;
+      outline: none;
+      box-shadow: 0 0 8px rgba(37, 117, 252, 0.5);
+    }
+    button[type="submit"] {
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: white;
+      border: none;
+      padding: 16px 0;
+      width: 100%;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 1.15rem;
+      cursor: pointer;
+      transition: background 0.4s ease, box-shadow 0.3s ease;
+      letter-spacing: 1px;
+      user-select: none;
+      box-shadow: 0 6px 15px rgba(37, 117, 252, 0.6);
+    }
+    button[type="submit"]:hover {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.8);
+    }
+    .error {
+      color: #cc0000;
+      font-size: 0.9rem;
+      margin-top: -15px;
+      margin-bottom: 18px;
+      font-weight: 600;
+    }
+
+    /* To-Do List */
+    .todo {
+      background: white;
+      padding: 30px 35px;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .todo:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+    }
+    .todo h2 {
+      margin-bottom: 25px;
+      color: #2575fc;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    .todo-input {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .todo-input input[type="text"] {
+      flex-grow: 1;
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-weight: 500;
+      color: #444;
+    }
+    .todo-input input[type="text"]:focus {
+      border-color: #2575fc;
+      outline: none;
+      box-shadow: 0 0 8px rgba(37, 117, 252, 0.5);
+    }
+    .todo-input button {
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #2575fc, #6a11cb);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.4s ease, box-shadow 0.3s ease;
+      font-size: 1.1rem;
+      user-select: none;
+      box-shadow: 0 6px 15px rgba(37, 117, 252, 0.6);
+    }
+    .todo-input button:hover {
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      box-shadow: 0 8px 20px rgba(106, 17, 203, 0.8);
+    }
+    ul.todo-list {
+      list-style: none;
+      padding-left: 0;
+      max-height: 400px;
+      overflow-y: auto;
+      border-top: 2px solid #2575fc;
+      border-radius: 0 0 12px 12px;
+    }
+    ul.todo-list li {
+      background-color: #e6f0ff;
+      padding: 14px 20px;
+      margin-bottom: 12px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      transition: background-color 0.3s;
+      user-select: none;
+    }
+    ul.todo-list li:hover {
+      background-color: #d0dbff;
+    }
+    ul.todo-list li button.delete-btn {
+      background-color: #cc0000;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: background-color 0.3s, transform 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    ul.todo-list li button.delete-btn:hover {
+      background-color: #990000;
+      transform: scale(1.1);
+    }
+    ul.todo-list li button.delete-btn svg {
+      width: 14px;
+      height: 14px;
+      fill: white;
+    }
+
+    /* Responsive Media Queries */
+    @media (max-width: 900px) {
+      main {
+        grid-template-columns: 1fr;
+        margin: 40px 15px 70px;
+      }
+      nav {
+        justify-content: center;
+      }
+      nav ul {
+        margin-top: 12px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">My Website</div>
+    <ul>
+      <li><a href="#contact-form">Contact</a></li>
+      <li><a href="#todo-list">To-Do</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- Contact Form Section -->
+    <section id="contact-form">
+      <form id="form" novalidate>
+        <h2>Contact Form</h2>
+
+        <label for="name">Name <span style="color:#cc0000">*</span></label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+        <div id="nameError" class="error"></div>
+
+        <label for="email">Email <span style="color:#cc0000">*</span></label>
+        <input type="email" id="email" name="email" placeholder="example@mail.com" required />
+        <div id="emailError" class="error"></div>
+
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+
+    <!-- To-Do List Section -->
+    <section class="todo" id="todo-list">
+      <h2>Dynamic To-Do List</h2>
+      <div class="todo-input">
+        <input type="text" id="todoInput" placeholder="Add a new task" />
+        <button id="addBtn">Add</button>
+      </div>
+      <ul id="todoItems" class="todo-list"></ul>
+    </section>
+  </main>
+
+  <script>
+    // Form Validation
+    const form = document.getElementById('form');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+
+    function isValidEmail(email) {
+      // Simple email regex
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      let valid = true;
+
+      // Name validation
+      if (nameInput.value.trim() === '') {
+        nameError.textContent = 'Name is required.';
+        valid = false;
+      } else {
+        nameError.textContent = '';
+      }
+
+      // Email validation
+      if (emailInput.value.trim() === '') {
+        emailError.textContent = 'Email is required.';
+        valid = false;
+      } else if (!isValidEmail(emailInput.value.trim())) {
+        emailError.textContent = 'Please enter a valid email address.';
+        valid = false;
+      } else {
+        emailError.textContent = '';
+      }
+
+      if (valid) {
+        alert(`Thank you, ${nameInput.value.trim()}! Your form has been submitted.`);
+        form.reset();
+      }
+    });
+
+    // To-Do List Functionality
+    const todoInput = document.getElementById('todoInput');
+    const addBtn = document.getElementById('addBtn');
+    const todoItems = document.getElementById('todoItems');
+
+    function createDeleteIcon() {
+      // SVG Trash Icon
+      const svgNS = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(svgNS, "svg");
+      svg.setAttribute("viewBox", "0 0 24 24");
+      svg.setAttribute("aria-hidden", "true");
+      svg.style.width = "14px";
+      svg.style.height = "14px";
+      svg.style.fill = "white";
+
+      const path = document.createElementNS(svgNS, "path");
+      path.setAttribute("d", "M3 6h18v2H3V6zm2 3h14l-1.5 12h-11L5 9zm3 3v6h2v-6H8zm4 0v6h2v-6h-2z");
+      svg.appendChild(path);
+
+      return svg;
+    }
+
+    function addTodoItem(task) {
+      const li = document.createElement('li');
+      li.textContent = task;
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.classList.add('delete-btn');
+      deleteBtn.title = "Delete task";
+
+      // Add SVG icon
+      const trashIcon = createDeleteIcon();
+      deleteBtn.appendChild(trashIcon);
+      deleteBtn.appendChild(document.createTextNode(' Delete'));
+
+      deleteBtn.addEventListener('click', () => {
+        todoItems.removeChild(li);
+      });
+
+      li.appendChild(deleteBtn);
+      todoItems.appendChild(li);
+    }
+
+    addBtn.addEventListener('click', () => {
+      const task = todoInput.value.trim();
+      if (task === '') {
+        alert('Please enter a task');
+        return;
+      }
+      addTodoItem(task);
+      todoInput.value = '';
+      todoInput.focus();
+    });
+
+    // Allow enter key to add todo
+    todoInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        addBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
