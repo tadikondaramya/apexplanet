@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Awesome Webpage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #ffffff);
+      padding: 30px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #00796b;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #004d40;
+      margin-top: 25px;
+    }
+
+    p, ul {
+      margin: 15px 0;
+      line-height: 1.6;
+    }
+
+    ul {
+      list-style: circle;
+      padding-left: 20px;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 20px auto;
+      border-radius: 12px;
+      border: 4px solid #b2dfdb;
+    }
+
+    a {
+      color: #0288d1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 30px;
+      background-color: #00796b;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #004d40;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 15px;
+      }
+      .container {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Welcome to My Personal Webpage</h1>
+
+    <h2>About Me</h2>
+    <p>Hello! I'm a creative and curious learner diving into the world of web development. I enjoy turning ideas into reality using code, and I'm excited to share my journey with you.</p>
+
+    <h2>My Hobbies</h2>
+    <ul>
+      <li>🎨 Drawing & Design</li>
+      <li>🎸 Playing Guitar</li>
+      <li>💻 Coding Projects</li>
+      <li>📚 Reading Tech Blogs</li>
+    </ul>
+
+    <h2>My Picture</h2>
+    <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80" alt="My Photo">
+
+    <h2>Favorite Website</h2>
+    <p>I love learning on <a href="https://www.wikipedia.org/" target="_blank">Wikipedia</a> — it's full of amazing knowledge!</p>
+
+    <button onclick="showGreeting()">Click Me!</button>
+  </div>
+
+  <script>
+    function showGreeting() {
+      alert("Thanks for visiting my website! 😊");
+    }
+  </script>
+
+</body>
+</html>
